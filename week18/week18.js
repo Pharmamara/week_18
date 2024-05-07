@@ -348,23 +348,6 @@ document.querySelector(".b-20").addEventListener("click", removeLastElement);
 //Задание 21
 //Создайте функцию addToCart, которая при нажатии кнопки Задание 21 получает из Local Storage сохранённый массив cartItems. Затем добавляет новый элемент в массив, представляющий товар, введённый вами в поле ввода. Массив cartItems должен сохраняться в Local Storage с ключом task21. Вызывается функция по кнопке Задание 21.
 //Подсказка: необходимо проверить существует ли значение и не является пустым. Если значение в хранилище есть, то оно преобразуется из JSON в массив. В противном случае, устанавливается пустой массив.
-/*const addToCart = () => {
-	const productInput = document.getElementById('productInput');
-	const product = productInput.value;
-
-	if (product.trim() !== '') {
-		let cartItems = LocalStorage.getItem('cartItems');
-		cartItems = cartItems ? JSON.parse(cartItems) : []; //код из подсказки
-
-		//Ваш код
-
-		console.log(`Товар "${product}" добавлен в корзину и сохранен в Local Storage.`);
-	} else {
-		console.log('Введите название товара.');
-	}
-};
-
-document.querySelector('.b-21').addEventListener('click', addToCart);*/
 
 const addToCart = () => {
   const productInput = document.getElementById("productInput");
@@ -468,7 +451,7 @@ const getCookie = (name) => {
     if (cookie[0] === name) {
       const value = cookie[1];
       //Ваш код
-      cookieContainer.innerHTML = `Вывод значения куки ${value}`;
+      cookieContainer.innerHTML = `Вывод значения куки: ${value}`;
     }
   }
   //Ваш код
@@ -486,12 +469,15 @@ const checkCookie = () => {
   //Ваш код
   if (username !== "") {
     //Ваш код
+    console.log(`Cookie с именем ${username} не найден.`);
   } else {
     //Ваш код
+    console.log(getCookie(username));
   }
 };
 
 // добавьте слушатель события
+document.querySelector(".b-28").addEventListener("click", checkCookie);
 
 //Задание 29
 //Создайте функцию setCookie, которая принимает имя и значение cookie. Функция должна устанавливать cookie с указанным именем и значением. После установки cookie, выведите сообщение в консоль. Вызывается функция по кнопке Задание 29.
@@ -499,6 +485,7 @@ const checkCookie = () => {
 const setCookie = (name, value) => {
   document.cookie = `${name}=${value}`;
   //Ваш код
+  console.log(`Cookie ${name} установлен`);
 };
 
 document.querySelector(".b-29").addEventListener("click", () => {
@@ -511,6 +498,7 @@ document.querySelector(".b-29").addEventListener("click", () => {
 const deleteCookie = (name) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   //Ваш код
+  console.log(`Cookie ${name} удален`);
 };
 
 document.querySelector(".b-30").addEventListener("click", () => {
