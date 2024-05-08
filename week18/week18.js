@@ -354,16 +354,11 @@ const addToCart = () => {
   const product = productInput.value;
 
   if (product.trim() !== "") {
-    let cartItems = window.localStorage.getItem("cartItems");
+    let cartItems = window.localStorage.getItem("task21");
     cartItems = cartItems ? JSON.parse(cartItems) : []; //код из подсказки
 
     //Ваш код
-    let cartItemsArr = window.localStorage.setItem(
-      "task21",
-      JSON.parse(cartItems)
-    );
-    window.localStorage.getItem("task21");
-    let sum = cartItems.push(product);
+    cartItems.push(product);
     window.localStorage.setItem("task21", JSON.stringify(cartItems));
     console.log(
       `Товар ${product} добавлен в корзину и сохранен в Local Storage.`
@@ -381,6 +376,15 @@ document.querySelector(".b-21").addEventListener("click", addToCart);
 
 const removeFromCart = () => {
   //Ваш код
+  let cartItemsJSON = window.localStorage.getItem("task21");
+  let cartItemsArr = JSON.parse(cartItemsJSON);
+  console.log(cartItemsArr);
+  if (cartItemsArr.length > 0) {
+    cartItemsArr.pop();
+    window.localStorage.setItem("cartItems", cartItemsArr);
+  } else {
+    console.log("массив cartItems пуст");
+  }
 };
 
 document.querySelector(".b-22").addEventListener("click", removeFromCart);
@@ -390,6 +394,14 @@ document.querySelector(".b-22").addEventListener("click", removeFromCart);
 
 const showCart = () => {
   //Ваш код
+  let cartItems = window.localStorage.getItem("cartItems");
+  let cartItemsArr = cartItems.split(",");
+
+  const resultElement = document.querySelector(".practicum23");
+  for (const key in cartItemsArr) {
+    const value = cartItemsArr[key];
+    resultElement.innerHTML += `${key}: ${value} `;
+  }
 };
 
 document.querySelector(".b-23").addEventListener("click", showCart);
@@ -399,6 +411,11 @@ document.querySelector(".b-23").addEventListener("click", showCart);
 
 const updateCartCount = () => {
   //Ваш код
+  let cartItems = window.localStorage.getItem("cartItems");
+  let cartItemsArr = cartItems.split(",");
+  let cartItemsArrLength = cartItemsArr.length;
+  const resultElement = document.querySelector(".practicum24");
+  resultElement.innerHTML = `Количество товаров в корзине: ${cartItemsArrLength}`;
 };
 
 document.querySelector(".b-24").addEventListener("click", updateCartCount);
@@ -408,7 +425,7 @@ document.querySelector(".b-24").addEventListener("click", updateCartCount);
 
 const clearCart = () => {
   //Ваш код
-  window.localStorage.removeItem("task21");
+  window.localStorage.removeItem("cartItems");
   console.log("Корзина очищена.");
 };
 
@@ -418,8 +435,10 @@ document.querySelector(".b-25").addEventListener("click", clearCart);
 //При загрузке страницы установите cookie с именем "username" и значением "Кот Учёный". Выведите сообщение в консоль, подтверждающее успешное создание cookie.
 
 //Ваш код
+
 document.cookie = "username=Кот Учёный";
-console.log("Cookie 'username' установлен.");
+console.log(document.cookie);
+console.log(`Cookie 'username' установлен`);
 
 //Задание 27
 //Допишите функцию getCookie, которая принимает имя cookie. Функция должна получать значение cookie с указанным именем, возвращать его и записывать в элемент с классом practicum27. Если cookie с указанным именем не найден, функция должна возвращать пустую строку. Вызывается функция по кнопке Задание 27. Выведите куку с именем "username".
@@ -429,9 +448,11 @@ const getCookie = (name) => {
   const cookies = document.cookie.split("; ");
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].split("=");
-    if (cookie[0] === name) {
-      const value = cookie[1] || "";
+    if (cookie[i] === name) {
+      const value = cookie[i + 1];
       //Ваш код
+      cookieContainer.innerHTML = `Вывод значения куки: ${value}`;
+      return value;
     }
   }
   //Ваш код
@@ -447,14 +468,18 @@ document.querySelector(".b-27").addEventListener("click", () => {
 
 const checkCookie = () => {
   //Ваш код
-  if (username !== "") {
+  const username = getCookie("username");
+  if (username === "") {
     //Ваш код
+    console.log(`Cookie с именем ${username} не найден.`);
   } else {
     //Ваш код
+    console.log(username);
   }
 };
 
 // добавьте слушатель события
+document.querySelector(".b-28").addEventListener("click", checkCookie);
 
 //Задание 29
 //Создайте функцию setCookie, которая принимает имя и значение cookie. Функция должна устанавливать cookie с указанным именем и значением. После установки cookie, выведите сообщение в консоль. Вызывается функция по кнопке Задание 29.
@@ -462,6 +487,7 @@ const checkCookie = () => {
 const setCookie = (name, value) => {
   document.cookie = `${name}=${value}`;
   //Ваш код
+  console.log(`Cookie ${name} установлен`);
 };
 
 document.querySelector(".b-29").addEventListener("click", () => {
@@ -474,6 +500,7 @@ document.querySelector(".b-29").addEventListener("click", () => {
 const deleteCookie = (name) => {
   document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   //Ваш код
+  console.log(`Cookie ${name} удален`);
 };
 
 document.querySelector(".b-30").addEventListener("click", () => {
