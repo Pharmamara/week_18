@@ -446,12 +446,13 @@ console.log(`Cookie 'username' установлен`);
 const getCookie = (name) => {
   const cookieContainer = document.querySelector(".practicum27");
   const cookies = document.cookie.split("; ");
-  for (let i = 0; i <= cookies.length; i++) {
+  for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i].split("=");
-    if (cookie[0] === name) {
-      const value = cookie[1];
+    if (cookie[i] === name) {
+      const value = cookie[i + 1];
       //Ваш код
       cookieContainer.innerHTML = `Вывод значения куки: ${value}`;
+      return value;
     }
   }
   //Ваш код
@@ -467,12 +468,13 @@ document.querySelector(".b-27").addEventListener("click", () => {
 
 const checkCookie = () => {
   //Ваш код
-  if (username !== "") {
+  const username = getCookie("username");
+  if (username === "") {
     //Ваш код
     console.log(`Cookie с именем ${username} не найден.`);
   } else {
     //Ваш код
-    console.log(getCookie(username));
+    console.log(username);
   }
 };
 
